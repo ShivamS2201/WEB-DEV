@@ -1,0 +1,123 @@
+<html lang=en>
+<head>
+<meta charset="UTF-8"> 
+<title>Drum kit</title>
+<link rel="stylesheet" href= "style.css">
+</head>
+<body>
+<!--data-key is the key code associated with the certain key press.
+-key designates the key that is to be pressed.
+-sound is the sound that will be heard by key press.
+data-key is used to create custom keys, or methods.
+
+Transition end event will lookout for all transitions and end them after timeout.
+-->
+<div class="text-scroller">
+<b> <center class="first">SHATECH</center> </b>
+</div>
+<div class="keys">
+ <ul id="parent">
+  <li>
+     <div data-key="65" class="key">
+     <kbd>A</kbd>
+     <span class="sound">Clap</span>
+     </div>
+  </li>
+  <li>
+       <div data-key="83" class="key">
+     <kbd>S</kbd>
+     <span class="sound">Hihat</span>
+     </div>
+  </li>
+
+  <li>
+     <div data-key="68" class="key">
+     <kbd>D</kbd>
+     <span class="sound">Kick</span>
+     </div>
+   </li>
+
+    <li>
+     <div data-key="70" class="key">
+     <kbd>F</kbd>
+     <span class="sound">Snare</span>
+     </div>
+    </li>
+
+
+    <li>
+     <div data-key="71" class="key">
+     <kbd>G</kbd>
+     <span class="sound">Ride</span>
+     </div>
+    </li>
+
+    <li>
+     <div data-key="72" class="key">
+     <kbd>H</kbd>
+     <span class="sound">Boom</span>
+     </div>
+    </li>
+
+    <li>
+     <div data-key="74" class="key">
+     <kbd>J</kbd>
+     <span class="sound">Game</span>
+     </div>
+    </li>
+    
+    <li>
+     <div data-key="75" class="key">
+     <kbd>K</kbd>
+     <span class="sound">Blup</span>
+     </div>
+    </li>
+ 
+    <li>
+     <div data-key="76" class="key">
+     <kbd>L</kbd>
+     <span class="sound">Quack</span>
+     </div>
+    </li>
+ </ul>
+</div>
+
+<audio data-key="65" src="s5.wav"></audio>
+<audio data-key="83" src="s2.wav"></audio>
+<audio data-key="68" src="s3.wav"></audio>
+<audio data-key="70" src="s4.wav"></audio>
+<audio data-key="71" src="s1.wav"></audio>
+<audio data-key="72" src="c1.mp3"></audio>
+<audio data-key="74" src="s7.mp3"></audio>
+<audio data-key="75" src="b3.mp3"></audio>
+<audio data-key="76" src="q1.mp3"></audio>
+<script>
+ function playSound(e){
+     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+     const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); 
+     //console.log(audio); 
+     if(!audio) return; //functions doesnot run for null
+    
+     audio.currentTime = 0; //rewind to the start
+     audio.play();
+     key.classList.add('playing');
+ }
+
+ function removeTranistion(e){
+     if(e.propertyName !== 'transform') return; // console.log(e.propertyName) we see that only when trsnition gets finished this event gets printed
+     // => that our function only gets into action after transitoing is done.
+    this.classList.remove('playing');                               // shows what is being called against it. The div being used in this case, i.e. key
+ }
+ const keys = document.querySelectorAll('.key'); // we select all .keys class elements in html code
+    // keys.addEventListener('transitionend'); we have a array of keys being returned so rather then just choosing to transition them all,  we need a for loop for doing all. whenever Transition end is encountered.
+ keys.forEach(key => key.addEventListener('transitionend', removeTranistion));
+ window.addEventListener('keydown',playSound);
+</script>
+
+<div class="text-scroller-2">
+<b> <center class="first">SHATECH</center> </b>
+
+</div>
+
+</body>
+</html>
